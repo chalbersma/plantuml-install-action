@@ -47,14 +47,14 @@ runs:
       shell: bash
 
     - name: Install Java
-      if: inputs.install_java == "yes"
+      if: ${{ inputs.install_java == "yes" }}
       uses: actions/setup-java@v4
       with:
         distribution: 'corretto'
         java-version: '21'
 
     - name: Install Dot
-      if: inputs.install_dot == "yes"
+      if: ${{ inputs.install_dot == "yes" }}
       uses: awalsh128/cache-apt-pkgs-action@v1
       with:
         packages: graphviz ditaa
