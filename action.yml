@@ -39,12 +39,11 @@ runs:
 
     - name: Download Plantuml Script
       run: |
+        plantuml_script="https://raw.githubusercontent.com/chalbersma/plantuml-install-action/main/dist/plantuml"
         mkdir -p /opt/plantuml/bin
         curl -o /opt/plantuml/bin/plantuml "${plantuml_script}"
         chmod +x /opt/plantuml/bin/plantuml
         echo "/opt/plantuml/bin/plantuml" >> $GITHUB_PATH
-      env:
-        plantuml_script="https://raw.githubusercontent.com/chalbersma/plantuml-install-action/main/dist/plantuml"
       shell: bash
 
     - name: Install Java
@@ -58,4 +57,4 @@ runs:
       if: inputs.install_dot == "yes"
       uses: awalsh128/cache-apt-pkgs-action@v1
       with:
-        packages: dot
+        packages: graphviz ditaa
