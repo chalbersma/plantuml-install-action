@@ -4,7 +4,7 @@ inputs:
   plantuml_version:
     description: Which version of Plantuml To Use
     required: false
-    default: "latest"
+    default: latest
   install_java:
     description: Should I Install a JRE for you too?
     required: false
@@ -34,7 +34,7 @@ runs:
         
         curl -o /opt/plantuml/plantuml.jar "${dwd_url}"
       env:
-        plantuml_version = ${{ inputs.plantuml_version }}
+        plantuml_version: ${{ inputs.plantuml_version }}
       shell: bash
 
     - name: Download Plantuml Script
