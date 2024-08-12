@@ -8,11 +8,11 @@ inputs:
   install_java:
     description: Should I Install a JRE for you too?
     required: false
-    default: "no"
+    default: no
   install_dot:
     description: Should I Install a Graphviz for you too?
     required: false
-    default: "no"
+    default: no
 runs:
   using: "composite"
   steps:
