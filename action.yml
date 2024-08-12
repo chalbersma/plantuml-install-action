@@ -23,6 +23,7 @@ runs:
 
     - name: Download Plantuml
       run: |
+        echo ${RUNNER_TOOLSDIRECTORY}
         mkdir -p /opt/plantuml/
         if [[ ${plantuml_version} == "latest" ]] ; then
           version=$(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/latest | jq -r '.tag_name')
