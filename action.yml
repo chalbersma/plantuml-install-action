@@ -1,0 +1,90 @@
+name: "Plantuml Install Action"
+description: "Install Plantuml to Reasonably Standard Place for Usage"
+inputs:
+  plantuml_version:
+    description: Which version of Plantuml To Use
+    required: false
+    default: "latest"
+  install_java:
+    description: Should I Install a JRE for you too?
+    required: false
+    default: "no"
+  install_dot:
+    description: Should I Install a Graphviz for you too?
+    required: false
+    default: "no"
+runs:
+  using: "composite"
+  steps:
+
+    - name: Download Plantuml
+      run: |
+        mkdir -p /opt/plantuml/
+        if [[ ${plantuml_version} == "latest" ]] ; then
+          version=$(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/latest | jq -r '.tag_name')
+          echo -e "Latest Version detected as ${version}"
+        fi
+          version="${plantuml_version}"
+        echo -e "Downloading Plantuml Version ${version}"
+        dwd_url="https://github.com/plantuml/plantuml/releases/download/${version}/plantuml.jar"
+        
+        curl -o /opt/plantuml/plantuml.jar "${dwd_url}"
+      env:
+        plantuml_version = ${{ inputs.plantuml_version }}
+      shell: bash
+
+    - name: Download Plantuml Script
+      run: |
+        mkdir -p /opt/plantuml/bin
+        if [[ ${plantuml_version} == "latest" ]] ; then
+          version=$(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/latest | jq -r '.tag_name')
+          echo -e "Latest Version detected as ${version}"
+        fi
+          version="${plantuml_version}"
+        echo -e "Downloading Plantuml Version ${version}"
+        dwd_url="https://github.com/plantuml/plantuml/releases/download/${version}/plantuml.jar"
+        
+        curl -o /opt/plantuml/plantuml.jar "${dwd_url}"
+      env:
+        plantuml_version = ${{ inputs.plantuml_version }}
+      shell: bash
+
+    - name: Install Java
+      if: inputs.install_java == "yes"
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'corretto'
+        java-version: '21'
+
+    - name: Install Dot
+      if: inputs.install_dot == "yes"
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'corretto'
+        java-version: '21'
+
+    - name: Install brew packages
+      if: runner.os == 'macOS' && inputs.brew != ''
+      run: |
+        brew update
+        echo "${{ inputs.brew }}" | xargs -n 1 brew install
+      shell: sh
+
+    - name: Install brew cask packages
+      if: runner.os == 'macOS' && inputs.brew-cask != ''
+      run: |
+        brew update
+        echo "${{ inputs.brew-cask }}" | xargs -n 1 brew install --cask
+      shell: sh
+
+    - name: Install apt packages
+      if: runner.os == 'Linux' && inputs.apt != ''
+      run: |
+        sudo apt update
+        sudo apt install -y ${{ inputs.apt }}
+      shell: sh
+
+    - name: Install choco packages
+      if: runner.os == 'Windows' && inputs.choco != ''
+      run: choco install -y ${{ inputs.choco }}
+      shell: sh
