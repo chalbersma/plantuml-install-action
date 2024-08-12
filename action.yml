@@ -28,7 +28,10 @@ runs:
           version=$(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/latest | jq -r '.tag_name')
           echo -e "Latest Version detected as ${version}"
         fi
+          echo -e "Explicit Version"
           version="${plantuml_version}"
+        
+        echo ${version}
         
         echo -e "https://api.github.com/repos/plantuml/plantuml/releases/tags/${version}"
         curl -v https://api.github.com/repos/plantuml/plantuml/releases/tags/${version} | jq '.'
