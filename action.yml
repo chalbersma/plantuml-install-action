@@ -31,7 +31,7 @@ runs:
           version="${plantuml_version}"
         
         
-        curl -ks https://api.github.com/repos/plantuml/plantuml/releases/tags/${version} | jq -r '.assets | map(select(.name == "plantuml.jar"))[0].browser_download_url'
+        curl -ks https://api.github.com/repos/plantuml/plantuml/releases/tags/${version} | jq '.'
         dwd_url = $(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/tags/${version} | jq -r '.assets | map(select(.name == "plantuml.jar"))[0].browser_download_url')
         echo -e "Downloading Plantuml Version ${version} from ${dwd_url}"
         
