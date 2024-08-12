@@ -27,9 +27,10 @@ runs:
         if [[ ${plantuml_version} == "latest" ]] ; then
           version=$(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/latest | jq -r '.tag_name')
           echo -e "Latest Version detected as ${version}"
-        fi
+        else
           echo -e "Explicit Version"
           version="${plantuml_version}"
+        fi
         
         echo ${version}
         
