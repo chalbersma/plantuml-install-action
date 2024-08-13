@@ -56,3 +56,9 @@ runs:
       if: "${{ inputs.install_java == 'yes' }}"
       with:
         packages: default-jre-headless libfop-java libbatik-java libjlatexmath-java libavalon-framework-java libcommons-io-java libcommons-logging-java libxml-commons-external-java libxmlgraphics-commons-java
+
+    - name: Install Dot
+      if: "${{ inputs.install_dot == 'yes' }}"
+      uses: awalsh128/cache-apt-pkgs-action@v1
+      with:
+        packages: graphviz ditaa

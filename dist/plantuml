@@ -33,4 +33,4 @@ else
     exit 1
 fi
 
-$JAVA -Djava.awt.headless=true -jar ${PLANTUML} ${@}
+$JAVA -Djava.awt.headless=true -DGRAPHVIZ_DOT=/usr/bin/dot -jar ${PLANTUML} ${@}
