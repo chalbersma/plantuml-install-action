@@ -19,7 +19,7 @@ runs:
     - name: JQ Dependency
       uses: awalsh128/cache-apt-pkgs-action@v1
       with:
-        packages: jq
+        packages: jq autoconf libtool
 
     - name: Download Plantuml
       run: |
