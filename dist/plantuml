@@ -22,6 +22,7 @@
 # Copyright (C) 2013 Eelco Cramer
 # Copyright (C) 2024 Chris Halbersma <chris@halbersma.us>
 
+export GRAPHVIZ_DOT=/usr/bin/dot
 PLANTUML=/opt/plantuml/plantuml.jar
 
 if [ -n "${JAVA_HOME}" ] && [ -x "${JAVA_HOME}/bin/java" ] ; then
@@ -33,4 +34,4 @@ else
     exit 1
 fi
 
-$JAVA -Djava.awt.headless=true -DGRAPHVIZ_DOT=/usr/bin/dot -jar ${PLANTUML} ${@}
+$JAVA -jar ${PLANTUML} ${@}
