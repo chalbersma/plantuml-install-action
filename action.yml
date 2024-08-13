@@ -23,7 +23,7 @@ runs:
 
     - name: Download Plantuml
       run: |
-        mkdir -p /opt/plantuml/
+        mkdir -p /usr/share/java
         if [[ ${plantuml_version} == "latest" ]] ; then
           version=$(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/latest | jq -r '.tag_name')
           echo -e "Latest Version detected as ${version}"
@@ -35,7 +35,7 @@ runs:
         dwd_url=$(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/tags/${version} | jq -r '.assets | map(select(.name == "plantuml.jar"))[0].browser_download_url')
         echo -e "Downloading Plantuml Version ${version} from ${dwd_url}"
         
-        wget -O /opt/plantuml/plantuml.jar "${dwd_url}"
+        wget -O /usr/share/java/plantuml.jar "${dwd_url}"
       env:
         plantuml_version: ${{ inputs.plantuml_version }}
       shell: bash
@@ -45,10 +45,8 @@ runs:
     - name: Download Plantuml Script
       run: |
         plantuml_script="https://raw.githubusercontent.com/chalbersma/plantuml-install-action/main/dist/plantuml"
-        mkdir -p /opt/plantuml/bin
-        curl -o /opt/plantuml/bin/plantuml "${plantuml_script}"
-        chmod +x /opt/plantuml/bin/plantuml
-        echo "/opt/plantuml/bin/" >> $GITHUB_PATH
+        wget -O /usr/bin/plantuml "${plantuml_script}"
+        chmod +x /usr/bin/plantuml
       shell: bash
 
     - name: Install java
