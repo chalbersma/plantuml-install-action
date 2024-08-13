@@ -47,7 +47,7 @@ runs:
         mkdir -p /opt/plantuml/bin
         curl -o /opt/plantuml/bin/plantuml "${plantuml_script}"
         chmod +x /opt/plantuml/bin/plantuml
-        echo "/opt/plantuml/bin/plantuml" >> $GITHUB_PATH
+        echo "/opt/plantuml/bin/" >> $GITHUB_PATH
       shell: bash
 
     - name: Install Java
