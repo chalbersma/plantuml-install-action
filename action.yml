@@ -40,6 +40,8 @@ runs:
         plantuml_version: ${{ inputs.plantuml_version }}
       shell: bash
 
+
+
     - name: Download Plantuml Script
       run: |
         plantuml_script="https://raw.githubusercontent.com/chalbersma/plantuml-install-action/main/dist/plantuml"
@@ -49,12 +51,11 @@ runs:
         echo "/opt/plantuml/bin/" >> $GITHUB_PATH
       shell: bash
 
-    - name: Install Java
+    - name: Install java
+      uses: awalsh128/cache-apt-pkgs-action@v1
       if: "${{ inputs.install_java == 'yes' }}"
-      uses: actions/setup-java@v4
       with:
-        distribution: 'corretto'
-        java-version: '21'
+        packages: default-jre-headless ditaa libfop-java libbatik-java libjlatexmath-java libavalon-framework-java libcommons-io-java libcommons-logging-java libxml-commons-external-java libxmlgraphics-commons-java
 
     - name: Install Dot
       if: "${{ inputs.install_dot == 'yes' }}"
