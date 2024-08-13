@@ -32,5 +32,5 @@ else
     echo Cannot find JVM
     exit 1
 fi
-# -Playout=smetana
-$JAVA -jar ${PLANTUML} ${@}
+
+$JAVA -jar ${PLANTUML} -Playout=smetana ${@}
