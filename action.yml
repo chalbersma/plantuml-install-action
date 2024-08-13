@@ -45,8 +45,9 @@ runs:
     - name: Download Plantuml Script
       run: |
         plantuml_script="https://raw.githubusercontent.com/chalbersma/plantuml-install-action/main/dist/plantuml"
-        wget -O /usr/bin/plantuml "${plantuml_script}"
-        chmod +x /usr/bin/plantuml
+        wget -O /tmp/plantuml "${plantuml_script}"
+        chmod +x /tmp/plantuml
+        sudo mv /tmp/plantuml /usr/bin/plantuml
       shell: bash
 
     - name: Install java
