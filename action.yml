@@ -31,7 +31,8 @@ runs:
         dwd_url=$(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/tags/${version} | jq -r '.assets | map(select(.name == "plantuml.jar"))[0].browser_download_url')
         echo -e "Downloading Plantuml Version ${version} from ${dwd_url}"
         
-        wget -O /usr/share/java/plantuml.jar "${dwd_url}"
+        wget -O /tmp/plantuml.jar "${dwd_url}"
+        sudo mv /tmp/plantuml.jar /usr/share/java/plantuml.jar
       env:
         plantuml_version: ${{ inputs.plantuml_version }}
       shell: bash
