@@ -15,11 +15,12 @@ runs:
     - name: JQ Dependency
       uses: awalsh128/cache-apt-pkgs-action@v1.5.0
       with:
-        packages: jq autoconf libtool graphviz sudo
+        packages: jq autoconf libtool graphviz
 
     - name: Download Plantuml
       run: |
-        sudo mkdir -p /usr/share/java
+        export SDCMD=$(which sudo)
+        ${SDCMD} mkdir -p /usr/share/java
         if [[ ${plantuml_version} == "latest" ]] ; then
           version=$(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/latest | jq -r '.tag_name')
           echo -e "Latest Version detected as ${version}"
@@ -32,7 +33,7 @@ runs:
         echo -e "Downloading Plantuml Version ${version} from ${dwd_url}"
         
         wget -O /tmp/plantuml.jar "${dwd_url}"
-        sudo mv /tmp/plantuml.jar /usr/share/java/plantuml.jar
+        ${SDCMD} mv /tmp/plantuml.jar /usr/share/java/plantuml.jar
       env:
         plantuml_version: ${{ inputs.plantuml_version }}
       shell: bash
