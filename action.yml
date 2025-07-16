@@ -20,16 +20,17 @@ runs:
     - name: Download Plantuml
       run: |
         export SDCMD=$(which sudo)
+        export JQCMD=$(which jq)
         ${SDCMD} mkdir -p /usr/share/java
         if [[ ${plantuml_version} == "latest" ]] ; then
-          version=$(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/latest | jq -r '.tag_name')
+          version=$(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/latest | ${JQCMD} -r '.tag_name')
           echo -e "Latest Version detected as ${version}"
         else
           echo -e "Explicit Version"
           version="${plantuml_version}"
         fi
         
-        dwd_url=$(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/tags/${version} | jq -r '.assets | map(select(.name == "plantuml.jar"))[0].browser_download_url')
+        dwd_url=$(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/tags/${version} | ${JQCMD} -r '.assets | map(select(.name == "plantuml.jar"))[0].browser_download_url')
         echo -e "Downloading Plantuml Version ${version} from ${dwd_url}"
         
         wget -O /tmp/plantuml.jar "${dwd_url}"
