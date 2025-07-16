@@ -14,9 +14,9 @@ runs:
   steps:
     - name: JQ Dependency
       uses: awalsh128/cache-apt-pkgs-action@v1.5.1
-      execute_install_scripts: true
       with:
         packages: jq autoconf libtool graphviz sudo
+        execute_install_scripts: true
 
     - name: Download Plantuml
       run: |
