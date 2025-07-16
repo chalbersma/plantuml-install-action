@@ -13,10 +13,13 @@ runs:
   using: "composite"
   steps:
     - name: JQ Dependency
-      uses: awalsh128/cache-apt-pkgs-action@v1.5.1
-      with:
-        packages: jq autoconf libtool graphviz sudo
-        execute_install_scripts: true
+      shell: bash
+      run: |
+        export SDCMD=$(which sudo)
+        ${SDCMD} apt-get update 
+        ${SDCMD} apt-get -y install jq autoconf libtool graphviz sudo
+      env:
+        DEBIAN_FRONTEND: noninteractive
 
     - name: Download Plantuml
       run: |
