@@ -23,8 +23,7 @@ runs:
 
     - name: Download Plantuml
       run: |
-        export SDCMD=$(which sudo)
-        ${SDCMD} mkdir -p /usr/share/java
+        sudo mkdir -p /usr/share/java
         if [[ ${plantuml_version} == "latest" ]] ; then
           version=$(curl -ks https://api.github.com/repos/plantuml/plantuml/releases/latest | jq -r '.tag_name')
           echo -e "Latest Version detected as ${version}"
@@ -37,7 +36,7 @@ runs:
         echo -e "Downloading Plantuml Version ${version} from ${dwd_url}"
         
         wget -O /tmp/plantuml.jar "${dwd_url}"
-        ${SDCMD} mv /tmp/plantuml.jar /usr/share/java/plantuml.jar
+        sudo mv /tmp/plantuml.jar /usr/share/java/plantuml.jar
       env:
         plantuml_version: ${{ inputs.plantuml_version }}
       shell: bash
